@@ -1,7 +1,7 @@
 ---
 edit_page: Edit page
 
-#nav_navigation: Navigation
+nav_navigation: Navigation
 nav_tags: Tags
 nav_more: More
 nav_top: Back to top
@@ -42,7 +42,7 @@ footer_privacy_policy: Privacy Policy
 footer_content_license_prefix: >
   Content licensed under
 
-language_switch_no_tranlation_prefix: "Page not translated:"
+language_switch_no_translation_prefix: "Page not translated:"
 
 propertylist_required: required
 propertylist_optional: optional

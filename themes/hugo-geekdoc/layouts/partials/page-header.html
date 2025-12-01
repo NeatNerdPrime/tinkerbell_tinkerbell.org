@@ -10,9 +10,8 @@
   {{ $parent := .page.Parent }}
   {{ if $parent }}
     {{ $name := (partial "utils/title" $parent) }}
-    {{ $position := 1 }}
-    {{/* $position := (sub .position 1) */}}
-    {{ $value := (printf "<li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='%s' href='%s'><span itemprop='name'>%s</span></a><meta itemprop='position' content='%d' /></li><li> > </li>%s" $parent.RelPermalink $parent.RelPermalink $name $position .value) }}
+    {{ $position := (sub .position 1) }}
+    {{ $value := (printf "<li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='%s' href='%s'><span itemprop='name'>%s</span></a><meta itemprop='position' content='%d' /></li><li> / </li>%s" $parent.RelPermalink $parent.RelPermalink $name $position .value) }}
     {{ template "breadcrumb" dict "page" $parent "value" $value "position" $position }}
   {{ else }}
     {{ .value | safeHTML }}
@@ -49,6 +48,7 @@
         <svg class="gdoc-icon gdoc_code"><use xlink:href="#gdoc_code"></use></svg>
         <a
           href="{{ $geekdocRepo }}/{{ path.Join $geekdocEditPath ($.Scratch.Get "geekdocFilePath") }}"
+          rel="edit"
         >
           {{ i18n "edit_page" }}
         </a>

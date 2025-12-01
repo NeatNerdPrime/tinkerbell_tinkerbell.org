@@ -6,7 +6,15 @@ geekdocDescription: "Install the Tinkerbell stack."
 
 This doc will guide you through the installation of the Tinkerbell stack.
 
-## Prerequisites
+- [Kubernetes](#kubernetes)
+- [Standalone binary](#standalone-binary)
+- [Docker Compose](#docker-compose)
+
+## Kubernetes
+
+This is the deployment option that is recommended for production use cases.
+
+### Prerequisites
 
 - [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 - [Helm](https://helm.sh/docs/intro/install/)
@@ -16,11 +24,11 @@ This doc will guide you through the installation of the Tinkerbell stack.
   **OR**
   - a DHCP relay agent in your environment that is configured to forward DHCP traffic to the Tinkerbell stack.
 
-## Install with Helm
+### Install with Helm
 
 This is the recommended way to install a production grade Tinkerbell stack. This will install all services and optionally (enabled by default) download [HookOS](https://github.com/tinkerbell/hook) images to the cluster.
 
-## TL;DR
+### TL;DR
 
 ```bash
 # Get the pod CIDRs to set as trusted proxies
@@ -45,7 +53,7 @@ helm install tinkerbell oci://ghcr.io/tinkerbell/charts/tinkerbell \
   --set "artifactsFileServer=$ARTIFACTS_FILE_SERVER"
 ```
 
-## Installation steps
+### Installation steps
 
 This section describes the procedure to install the Tinkerbell stack using Helm. The general syntax for a Helm installation is:
 
@@ -106,12 +114,12 @@ Default configuration values can be changed using one or more `--set <parameter>
    kubectl get svc -n tinkerbell # Verify the tinkerbell service has the IP you specified with $LB_IP under the EXTERNAL-IP column
    ```
 
-## Post installation steps
+### Post installation steps
 
 In order to start using the Tinkerbell stack and running Workflows, you will need to have Machines to provision and you'll need to create Hardware, Template, and Workflow objects.
 See the docs on [Hardware], [Templates], and [Workflows] for more information.
 
-## Uninstall
+### Uninstall
 
 Uninstall the Tinkerbell stack via Helm.
 
@@ -119,13 +127,31 @@ Uninstall the Tinkerbell stack via Helm.
 helm uninstall tinkerbell -n tinkerbell
 ```
 
-## Design notes
+### Design notes
 
 To allow for DHCP broadcast traffic to reach Tinkerbell, the chart has an init container that creates an additional network interface on the host running Tinkerbell and then moves this interface into the Tinkerbell Pod. This allows Tinkerbell to receive and send broadcast traffic on the layer 2 network.
 
+## Standalone Binary
+
+Tinkerbell can be run as a standalone binary without any external dependencies. The standalone binary (`tinkerbell-embedded-linux-amd64` or `tinkerbell-embedded-linux-arm64`) embeds a KubeAPI server, Kube-controller manager, and an etcd database.
+
+## Docker Compose
+
+Docker compose can be used to run Tinkerbell.
+While Tinkerbell requires Kubernetes and its Custom Resource Definitions, Tinkerbell can be run with only the essential parts of Kubernetes. The KubeAPI server, the kube-controller manager, and etcd (see [below](#kubernetes-without-etcd) for etcd alternatives).
+
+## Kubernetes without etcd
+
+While not specific to Tinkerbell, not having to use etcd for Kubernetes can be useful for certain use-cases.
+Kine allows running Kubernetes backed with one of the following instead of etcd.
+
+- SQLite
+- Postgres
+- MySQL/MariaDB
+- NATS
+
 [^1]: The HookOS artifacts must be named as follows: `vmlinuz-x86_64`, `initramfs-x86_64`, `vmlinuz-aarch64`, and `initramfs-aarch64`
 
-[GatewayAPI]: <https://kubernetes.io/docs/concepts/services-networking/gateway/>
 [Tootles]: /docs/services/tootles
 [Smee]: /docs/services/smee
 [Hardware]: /docs/concepts/hardware
