@@ -41,10 +41,5 @@
         </span>
       </div>
     {{ end }}
-    {{ if .Site.Data.menu.extra.footer }}
-    <div class="flex flex-25 justify-end">
-      {{ partial "menu-extra" (dict "current" . "source" .Site.Data.menu.extra.footer "target" "footer") }}
-    </div>
-    {{ end }}
   </nav>
 </footer>
