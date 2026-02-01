@@ -34,14 +34,14 @@ image: "/images/blog/your-image.png"
 
 ### Required Fields
 
-| Field | Description |
-|-------|-------------|
-| `title` | The title of your blog post |
-| `date` | Publication date in `YYYY-MM-DD` format |
-| `description` | A 1-2 sentence summary shown in post listings |
-| `author` | Your name as you want it displayed |
+| Field          | Description                                                              |
+|----------------|--------------------------------------------------------------------------|
+| `title`        | The title of your blog post                                              |
+| `date`         | Publication date in `YYYY-MM-DD` format                                  |
+| `description`  | A 1-2 sentence summary shown in post listings                            |
+| `author`       | Your name as you want it displayed                                       |
 | `authorGithub` | Your GitHub username (used to link to your profile and show your avatar) |
-| `tags` | List of relevant tags (e.g., `["release", "tutorial", "community"]`) |
+| `tags`         | List of relevant tags (e.g., `["release", "tutorial", "community"]`)     |
 
 ### Optional Fields
 
