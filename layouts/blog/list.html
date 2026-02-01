@@ -1,0 +1,104 @@
+{{ define "main" }}
+  {{ partial "navbar" . }}
+  <div class="blog-container">
+    <header class="blog-header">
+      <h1>{{ .Title }}</h1>
+      {{ with .Description }}<p class="blog-description">{{ . }}</p>{{ end }}
+    </header>
+
+    {{ $posts := where .Site.RegularPages "Section" "blog" }}
+    {{ $posts = $posts.ByDate.Reverse }}
+
+    {{/* Featured post - first/newest post */}}
+    {{ with index $posts 0 }}
+    {{ $post := . }}
+    <article class="blog-featured">
+      {{ with .Params.image }}
+      <div class="blog-featured__image">
+        <a href="{{ $post.RelPermalink }}">
+          <img src="{{ . }}" alt="{{ $post.Title }}">
+        </a>
+      </div>
+      {{ end }}
+      <div class="blog-featured__content">
+        <div class="blog-meta">
+          {{ with .Params.author }}
+          <span class="blog-author">
+            {{ if $post.Params.authorGithub }}
+            <a href="https://github.com/{{ $post.Params.authorGithub }}" target="_blank" rel="noopener">{{ . }}</a>
+            {{ else }}
+            {{ . }}
+            {{ end }}
+          </span>
+          <span class="blog-meta__sep">·</span>
+          {{ end }}
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+          <span class="blog-meta__sep">·</span>
+          <span class="blog-reading-time">{{ math.Round (div (countwords .Content) 200.0) }} min read</span>
+        </div>
+        <h2 class="blog-featured__title">
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </h2>
+        {{ with .Description }}<p class="blog-featured__excerpt">{{ . }}</p>{{ end }}
+        {{ with .Params.tags }}
+        <div class="blog-tags">
+          {{ range . }}
+          <a href="{{ "tags/" | relURL }}{{ . | urlize }}/" class="blog-tag">{{ . }}</a>
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+    </article>
+    {{ end }}
+
+    {{/* Rest of posts in grid */}}
+    {{ if gt (len $posts) 1 }}
+    <div class="blog-grid">
+      {{ range after 1 $posts }}
+      {{ $post := . }}
+      <article class="blog-card">
+        {{ with .Params.image }}
+        <div class="blog-card__image">
+          <a href="{{ $post.RelPermalink }}">
+            <img src="{{ . }}" alt="{{ $post.Title }}" loading="lazy">
+          </a>
+        </div>
+        {{ end }}
+        <div class="blog-card__content">
+          <div class="blog-meta">
+            {{ with .Params.author }}
+            <span class="blog-author">
+              {{ if $post.Params.authorGithub }}
+              <a href="https://github.com/{{ $post.Params.authorGithub }}" target="_blank" rel="noopener">{{ . }}</a>
+              {{ else }}
+              {{ . }}
+              {{ end }}
+            </span>
+            <span class="blog-meta__sep">·</span>
+            {{ end }}
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+          </div>
+          <h3 class="blog-card__title">
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          </h3>
+          {{ with .Description }}<p class="blog-card__excerpt">{{ . }}</p>{{ end }}
+          {{ with .Params.tags }}
+          <div class="blog-tags">
+            {{ range first 3 . }}
+            <a href="{{ "tags/" | relURL }}{{ . | urlize }}/" class="blog-tag">{{ . }}</a>
+            {{ end }}
+          </div>
+          {{ end }}
+        </div>
+      </article>
+      {{ end }}
+    </div>
+    {{ end }}
+
+    {{ if eq (len $posts) 0 }}
+    <div class="blog-empty">
+      <p>No posts yet. Check back soon!</p>
+    </div>
+    {{ end }}
+  </div>
+{{ end }}

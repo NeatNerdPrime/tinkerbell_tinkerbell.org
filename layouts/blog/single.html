@@ -1,0 +1,70 @@
+{{ define "main" }}
+  {{ partial "navbar" . }}
+  <article class="blog-post">
+    {{/* Hero image */}}
+    {{ with .Params.image }}
+    <div class="blog-post__hero">
+      <img src="{{ . }}" alt="{{ $.Title }}">
+    </div>
+    {{ end }}
+
+    <header class="blog-post__header">
+      <h1 class="blog-post__title">{{ .Title }}</h1>
+      
+      <div class="blog-post__meta">
+        {{ with .Params.author }}
+        <div class="blog-post__author">
+          {{ if $.Params.authorGithub }}
+          <img src="https://github.com/{{ $.Params.authorGithub }}.png?size=48" alt="{{ . }}" class="blog-post__author-avatar">
+          <a href="https://github.com/{{ $.Params.authorGithub }}" target="_blank" rel="noopener">{{ . }}</a>
+          {{ else }}
+          {{ . }}
+          {{ end }}
+        </div>
+        {{ end }}
+        
+        <div class="blog-post__details">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+          <span class="blog-meta__sep">·</span>
+          <span>{{ math.Round (div (countwords .Content) 200.0) }} min read</span>
+        </div>
+      </div>
+
+      {{ with .Params.tags }}
+      <div class="blog-tags">
+        {{ range . }}
+        <a href="{{ "tags/" | relURL }}{{ . | urlize }}/" class="blog-tag">{{ . }}</a>
+        {{ end }}
+      </div>
+      {{ end }}
+    </header>
+
+    <div class="blog-post__content">
+      {{ .Content }}
+    </div>
+
+    <footer class="blog-post__footer">
+      {{/* Post navigation - only show if there are prev/next posts */}}
+      {{ if or .PrevInSection .NextInSection }}
+      <nav class="blog-post__nav">
+        {{ with .PrevInSection }}
+        <a href="{{ .RelPermalink }}" class="blog-post__nav-link blog-post__nav-link--prev">
+          <span class="blog-post__nav-label">← Previous</span>
+          <span class="blog-post__nav-title">{{ .Title }}</span>
+        </a>
+        {{ end }}
+        {{ with .NextInSection }}
+        <a href="{{ .RelPermalink }}" class="blog-post__nav-link blog-post__nav-link--next">
+          <span class="blog-post__nav-label">Next →</span>
+          <span class="blog-post__nav-title">{{ .Title }}</span>
+        </a>
+        {{ end }}
+      </nav>
+      {{ end }}
+
+      <div class="blog-post__back">
+        <a href="{{ "blog/" | relURL }}">← Back to all posts</a>
+      </div>
+    </footer>
+  </article>
+{{ end }}
