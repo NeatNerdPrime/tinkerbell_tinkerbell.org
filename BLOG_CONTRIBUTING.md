@@ -5,7 +5,8 @@ This guide explains how to add a blog post to the Tinkerbell website.
 ## Quick Start
 
 1. Create a new Markdown file in `content/blog/` with a descriptive filename:
-   ```
+
+   ```text
    content/blog/YYYY-MM-your-post-title.md
    ```
 
@@ -44,8 +45,8 @@ image: "/images/blog/your-image.png"
 
 ### Optional Fields
 
-| Field | Description |
-|-------|-------------|
+| Field   | Description                                            |
+|---------|--------------------------------------------------------|
 | `image` | Path to a hero/thumbnail image (relative to `static/`) |
 
 ## Adding Images
@@ -56,11 +57,13 @@ To add a featured image to your post:
 
 1. Add your image to `static/images/blog/`
 2. Reference it in your front matter:
+
    ```yaml
    image: "/images/blog/my-post-image.png"
    ```
 
 Recommended image dimensions:
+
 - Hero image: 1200×630px (16:9 aspect ratio)
 - File formats: PNG, JPG, or WebP
 

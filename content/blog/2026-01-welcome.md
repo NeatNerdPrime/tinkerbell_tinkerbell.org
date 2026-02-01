@@ -5,6 +5,7 @@ description: "Introducing our new blog where we'll share technical deep-dives an
 author: "Tinkerbell Community"
 authorGithub: "tinkerbell"
 tags: ["announcement", "community"]
+image: "/images/blog/welcome-blog.png"
 ---
 
 Welcome to the Tinkerbell blog! This space is dedicated to showcasing our community—the people building, deploying, and extending Tinkerbell in creative ways.
