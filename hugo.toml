@@ -67,6 +67,20 @@ geekdocEditPath = "edit/main/"
 tinkerbellVersion = "v0.22.0"
 tinkerbellRepo = "https://github.com/tinkerbell/tinkerbell/"
 
+# Docs versioning configuration
+# v0.22 is the oldest version, new versions will be added above as they're released
+latestVersion = "v0.22"
+currentVersion = "v0.22"
+
+[[params.versions]]
+version = "v0.22"
+url = "/docs/v0.22/"
+
+# Future versions will be added here, e.g.:
+# [[params.versions]]
+# version = "v0.23"
+# url = "/docs/v0.23/"
+
 [[menu.shortcuts]]
 name = "<i class='fab fa-fw fa-slack'></i> <em>Slack</em>"
 url = "https://cloud-native.slack.com/archives/C01SRB41GMT"

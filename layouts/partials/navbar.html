@@ -42,6 +42,11 @@
                           {{ end }}
                       </li>
                   {{end}}
+                  {{- if hasPrefix .RelPermalink "/docs/" -}}
+                  <li class="version-selector-wrapper">
+                    {{ partial "version-selector.html" . }}
+                  </li>
+                  {{- end -}}
                 </ul>
               </div>
             </div>

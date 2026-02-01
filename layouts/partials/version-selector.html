@@ -1,0 +1,37 @@
+{{- $defined := .Site.Params.versions -}}
+{{- if $defined -}}
+  {{- $currentUrl := .RelPermalink -}}
+  {{- $currentVersion := "" -}}
+  {{- $latestVersion := .Site.Params.latestVersion | default "v0.22" -}}
+  
+  {{/* Extract version from current URL path (e.g., /docs/v0.22/concepts/ -> v0.22) */}}
+  {{- if findRE `^/docs/v[0-9]+\.[0-9]+/` $currentUrl -}}
+    {{- $currentVersion = replaceRE `^/docs/(v[0-9]+\.[0-9]+)/.*` "$1" $currentUrl -}}
+  {{- else -}}
+    {{- $currentVersion = $latestVersion -}}
+  {{- end -}}
+
+  <div class="version-selector">
+    <button class="version-selector__button" aria-haspopup="listbox" aria-label="Select documentation version">
+      <span class="version-selector__label">{{ $currentVersion }}</span>
+      <svg class="version-selector__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+        <path fill="currentColor" d="M7 10l5 5 5-5z"/>
+      </svg>
+    </button>
+    <ul class="version-selector__list" role="listbox">
+      {{- range .Site.Params.versions -}}
+        {{- $isActive := eq .version $currentVersion -}}
+        {{- $versionUrl := .url -}}
+        {{/* Build target URL by replacing version in current path */}}
+        {{- $targetUrl := $versionUrl -}}
+        {{- if findRE `^/docs/v[0-9]+\.[0-9]+/` $currentUrl -}}
+          {{- $pathSuffix := replaceRE `^/docs/v[0-9]+\.[0-9]+/(.*)` "$1" $currentUrl -}}
+          {{- $targetUrl = printf "/docs/%s/%s" .version $pathSuffix -}}
+        {{- end -}}
+        <li class="version-selector__item{{ if $isActive }} version-selector__item--active{{ end }}" role="option" {{ if $isActive }}aria-selected="true"{{ end }}>
+          <a href="{{ $targetUrl }}">{{ .version }}{{ if eq .version $latestVersion }} (latest){{ end }}</a>
+        </li>
+      {{- end -}}
+    </ul>
+  </div>
+{{- end -}}

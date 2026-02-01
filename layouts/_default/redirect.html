@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Redirecting...</title>
+    <meta http-equiv="refresh" content="0; url={{ .Params.redirectTo | default "/docs/v0.22/" }}">
+    <link rel="canonical" href="{{ .Params.redirectTo | default "/docs/v0.22/" }}">
+</head>
+<body>
+    <script>
+        window.location.href = "{{ .Params.redirectTo | default "/docs/v0.22/" }}";
+    </script>
+    <p>Redirecting to <a href="{{ .Params.redirectTo | default "/docs/v0.22/" }}">{{ .Params.redirectTo | default "/docs/v0.22/" }}</a>...</p>
+</body>
+</html>
