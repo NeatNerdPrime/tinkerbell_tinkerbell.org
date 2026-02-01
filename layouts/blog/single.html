@@ -1,6 +1,10 @@
 {{ define "main" }}
   {{ partial "navbar" . }}
   <article class="blog-post">
+    <nav class="blog-breadcrumb">
+      <a href="/blog/">← Back to Blog</a>
+    </nav>
+
     {{/* Hero image */}}
     {{ with .Params.image }}
     <div class="blog-post__hero">

@@ -1,6 +1,10 @@
 {{ define "main" }}
   {{ partial "navbar" . }}
   <div class="blog-container">
+    <nav class="blog-breadcrumb blog-breadcrumb--inline">
+      <a href="/blog/">← Back to Blog</a>
+    </nav>
+
     <header class="blog-header">
       <h1>Posts tagged "{{ .Title }}"</h1>
       <p class="blog-description">{{ len .Pages }} post{{ if ne (len .Pages) 1 }}s{{ end }} with this tag</p>
