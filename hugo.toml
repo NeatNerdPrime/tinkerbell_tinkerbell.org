@@ -83,14 +83,18 @@ latestVersion = "v0.22"
 
 # Version dropdown entries - TOML doesn't support variable interpolation,
 # so each version must be explicitly listed here for the dropdown menu.
+# - version: Used for docs URL paths (e.g., /docs/v0.22/)
+# - releaseVersion: Full semver for external references (Helm charts, doc.crds.dev)
 [[params.versions]]
 version = "v0.22"
 url = "/docs/v0.22/"
+releaseVersion = "v0.22.1"
 
 # Future versions will be added here, e.g.:
 # [[params.versions]]
 # version = "v0.23"
 # url = "/docs/v0.23/"
+# releaseVersion = "v0.23.0"
 
 [[menu.shortcuts]]
 name = "<i class='fab fa-fw fa-slack'></i> <em>Slack</em>"
