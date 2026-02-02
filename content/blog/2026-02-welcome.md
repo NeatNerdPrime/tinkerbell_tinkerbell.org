@@ -1,6 +1,6 @@
 ---
 title: "Welcome to the Tinkerbell Blog"
-date: 2026-01-31
+date: 2026-02-01
 description: "Introducing our new blog where we'll share technical deep-dives and community stories from the Tinkerbell ecosystem."
 author: "Tinkerbell Community"
 authorGithub: "tinkerbell"
