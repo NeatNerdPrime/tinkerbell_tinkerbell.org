@@ -7,7 +7,6 @@
 {{ end }}
 {{ $url := replace .Permalink ( printf "%s" .Site.BaseURL) "" }}
 {{ $page := .Page }}
-{{ $last := false }}
 {{ $done := false }}
 
 {{ $.Scratch.Delete "urls" }}
@@ -17,22 +16,31 @@
 {{ range $index := split $url "/" }}
     {{ if $page }}
         {{ if not $done }}
-            {{ $.Scratch.Add "urls" (slice $page.Permalink) }}
-            {{ $.Scratch.Add "titles" (slice $page.LinkTitle) }}
-            {{ $.Scratch.Add "descriptions" (slice $page.Description) }}
-
-            {{ if $last }}
-                {{ $done = true }}
+            {{ $showInBreadcrumb := default true $page.Params.geekdocBreadcrumb }}
+            {{ if $showInBreadcrumb }}
+                {{ $.Scratch.Add "urls" (slice $page.RelPermalink) }}
+                {{ $.Scratch.Add "titles" (slice $page.LinkTitle) }}
+                {{ $.Scratch.Add "descriptions" (slice $page.Description) }}
             {{ end }}
 
             {{ $parent := path.Dir (path.Dir $page.File.Path) }}
             {{ if eq $parent "." }}
-                {{ $last = true }}
-                {{ $page = $page.Site.GetPage "home" }}
+                {{ $done = true }}
             {{ else }}
-                {{ $page = $page.Parent  }}
+                {{ $page = $page.Parent }}
             {{ end }}
         {{ end }}
+    {{ end }}
+{{ end }}
+
+{{/* Add Documentation section if not already at root and it exists */}}
+{{ $docsPage := .Site.GetPage "/docs" }}
+{{ if $docsPage }}
+    {{ $showDocs := default true $docsPage.Params.geekdocBreadcrumb }}
+    {{ if $showDocs }}
+        {{ $.Scratch.Add "urls" (slice $docsPage.RelPermalink) }}
+        {{ $.Scratch.Add "titles" (slice $docsPage.LinkTitle) }}
+        {{ $.Scratch.Add "descriptions" (slice $docsPage.Description) }}
     {{ end }}
 {{ end }}
 

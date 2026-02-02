@@ -2035,8 +2035,22 @@ html.color-toggle-dark .gdoc-nav nav {
 
 html.color-toggle-dark .gdoc-nav__entry,
 html.color-toggle-dark .gdoc-nav a,
-html.color-toggle-dark .gdoc-nav span {
-    color: #adbac7 !important;
+html.color-toggle-dark .gdoc-nav span,
+html.color-toggle-dark .gdoc-nav__list > li > span,
+html.color-toggle-dark .gdoc-nav__list > li > label,
+html.color-toggle-dark .gdoc-nav__list > li > a,
+html.color-toggle-dark .gdoc-nav--main > ul > li > span,
+html.color-toggle-dark .gdoc-nav--main > ul > li > label,
+html.color-toggle-dark .gdoc-nav--main > ul > li > a,
+html.color-toggle-dark aside.gdoc-nav a,
+html.color-toggle-dark aside.gdoc-nav span,
+html.color-toggle-dark aside.gdoc-nav label {
+    color: #e6edf3 !important;
+}
+
+html.color-toggle-dark a.gdoc-nav__entry,
+html.color-toggle-dark a.gdoc-nav__entry:visited {
+    color: #e6edf3 !important;
 }
 
 html.color-toggle-dark .gdoc-nav__entry:hover {
@@ -2275,10 +2289,19 @@ html.color-toggle-dark .gdoc-markdown hr {
     background-color: #373e47 !important;
 }
 
-/* Breadcrumb */
+/* Breadcrumb - current page name should be bright */
 html.color-toggle-dark .gdoc-page__header,
 html.color-toggle-dark .gdoc-page__header span {
-    color: #768390 !important;
+    color: #e6edf3 !important;
+}
+
+/* Breadcrumb list - the ol.no contains breadcrumb items */
+html.color-toggle-dark ol.no li {
+    color: #e6edf3 !important;
+}
+
+html.color-toggle-dark ol.no li a {
+    color: #539bf5 !important;
 }
 
 html.color-toggle-dark .gdoc-page__header a {
@@ -2297,6 +2320,19 @@ html.color-toggle-dark .gdoc-page__footer a {
 /* Edit page link */
 html.color-toggle-dark .gdoc-page__anchorwrap a {
     color: #539bf5 !important;
+}
+
+/* Edit page icon and all gdoc icons */
+html.color-toggle-dark .editpage,
+html.color-toggle-dark .editpage a {
+    color: #adbac7 !important;
+}
+
+html.color-toggle-dark .gdoc-icon,
+html.color-toggle-dark svg.gdoc-icon,
+html.color-toggle-dark .editpage svg {
+    color: #adbac7 !important;
+    fill: currentColor !important;
 }
 
 /* Buttons */
@@ -2388,8 +2424,22 @@ html.color-toggle-dark select {
 
     html.color-toggle-auto .gdoc-nav__entry,
     html.color-toggle-auto .gdoc-nav a,
-    html.color-toggle-auto .gdoc-nav span {
-        color: #adbac7 !important;
+    html.color-toggle-auto .gdoc-nav span,
+    html.color-toggle-auto .gdoc-nav__list > li > span,
+    html.color-toggle-auto .gdoc-nav__list > li > label,
+    html.color-toggle-auto .gdoc-nav__list > li > a,
+    html.color-toggle-auto .gdoc-nav--main > ul > li > span,
+    html.color-toggle-auto .gdoc-nav--main > ul > li > label,
+    html.color-toggle-auto .gdoc-nav--main > ul > li > a,
+    html.color-toggle-auto aside.gdoc-nav a,
+    html.color-toggle-auto aside.gdoc-nav span,
+    html.color-toggle-auto aside.gdoc-nav label {
+        color: #e6edf3 !important;
+    }
+
+    html.color-toggle-auto a.gdoc-nav__entry,
+    html.color-toggle-auto a.gdoc-nav__entry:visited {
+        color: #e6edf3 !important;
     }
 
     html.color-toggle-auto .gdoc-nav__entry:hover {
@@ -2577,6 +2627,33 @@ html.color-toggle-dark select {
 
     html.color-toggle-auto .gdoc-page__header a {
         color: #539bf5 !important;
+    }
+
+    html.color-toggle-auto .gdoc-page__header,
+    html.color-toggle-auto .gdoc-page__header span {
+        color: #e6edf3 !important;
+    }
+
+    /* Breadcrumb list */
+    html.color-toggle-auto ol.no li {
+        color: #e6edf3 !important;
+    }
+
+    html.color-toggle-auto ol.no li a {
+        color: #539bf5 !important;
+    }
+
+    /* Edit page icon and all gdoc icons */
+    html.color-toggle-auto .editpage,
+    html.color-toggle-auto .editpage a {
+        color: #adbac7 !important;
+    }
+
+    html.color-toggle-auto .gdoc-icon,
+    html.color-toggle-auto svg.gdoc-icon,
+    html.color-toggle-auto .editpage svg {
+        color: #adbac7 !important;
+        fill: currentColor !important;
     }
 
     html.color-toggle-auto .gdoc-page__footer {
