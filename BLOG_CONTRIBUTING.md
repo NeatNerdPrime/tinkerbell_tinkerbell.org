@@ -64,7 +64,7 @@ To add a featured image to your post:
 
 Recommended image dimensions:
 
-- Hero image: 1200×630px (16:9 aspect ratio)
+- Hero image: 1200×630px (~1.9:1 aspect ratio)
 - File formats: PNG, JPG, or WebP
 
 ### Inline Images

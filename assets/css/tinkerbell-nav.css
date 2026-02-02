@@ -410,6 +410,10 @@ body {
     text-decoration: underline;
 }
 
+.blog-post__back--spaced {
+    margin-top: 2rem;
+}
+
 /* Blog Empty State */
 .blog-empty {
     text-align: center;
