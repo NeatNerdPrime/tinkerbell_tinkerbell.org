@@ -56,7 +56,7 @@
       button.setAttribute('aria-expanded', 'true');
       selector.classList.add('version-selector--open');
       focusedIndex = 0;
-      items[focusedIndex].focus();
+      if (items.length > 0) items[focusedIndex].focus();
     }
 
     function closeDropdown() {
