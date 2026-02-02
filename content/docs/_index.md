@@ -1,9 +1,4 @@
 ---
 title: "Documentation"
-geekdocHidden: false
-geekdocHiddenTocTree: false
+layout: redirect
 ---
-
-Learn how to deploy, use, and operate Tinkerbell.
-
-{{< customtoc >}}

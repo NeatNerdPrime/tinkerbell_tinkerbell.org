@@ -16,22 +16,42 @@ It's hosted and automatically build by Netlify (see [netlify.toml](./netlify.tom
 
 ### Build the site locally
 
-Make sure you have installed [Hugo](https://gohugo.io/getting-started/installing/) on your system.
-At the moment, this page is based on `v0.120.4` of Hugo.
-Follow the instructions to clone this repository and build the docs locally.
-
-- Clone the repository
+Clone the repository:
 
 ```sh
 git clone https://github.com/tinkerbell/tinkerbell.org
 cd tinkerbell.org
 ```
 
-- Start local server
+#### Using Netlify CLI (recommended)
 
-```sh
-hugo server -D
-```
+The Netlify CLI provides the most accurate local preview, including support for redirects defined in `netlify.toml`.
+
+1. Install the [Netlify CLI](https://docs.netlify.com/cli/get-started/):
+
+   ```sh
+   npm install -g netlify-cli
+   ```
+
+2. Start the development server:
+
+   ```sh
+   netlify dev
+   ```
+
+Site can be viewed at [http://localhost:8888](http://localhost:8888)
+
+#### Using Hugo directly
+
+Alternatively, you can use Hugo directly. Note that some features like redirects may not work identically to production.
+
+1. Install [Hugo](https://gohugo.io/getting-started/installing/) (v0.155.1 or later)
+
+2. Start the development server:
+
+   ```sh
+   hugo server -D
+   ```
 
 Site can be viewed at [http://localhost:1313](http://localhost:1313)
 

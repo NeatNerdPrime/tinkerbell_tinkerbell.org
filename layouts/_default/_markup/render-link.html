@@ -1,0 +1,31 @@
+{{- /* 
+  Render hook for links - Automatically makes internal /docs/ links version-aware.
+  
+  If a link starts with /docs/ but doesn't include a version (e.g., /docs/concepts/workflows),
+  this hook rewrites it to include the current page's version (e.g., /docs/v0.22/concepts/workflows).
+  
+  This allows documentation to use simple paths like /docs/concepts/workflows and have them
+  automatically resolve to the correct versioned path.
+*/ -}}
+{{- $destination := .Destination -}}
+{{- $text := .Text -}}
+{{- $title := .Title -}}
+
+{{- /* Check if this is an internal docs link without a version */ -}}
+{{- if and (hasPrefix $destination "/docs/") (not (findRE `^/docs/v[0-9]+\.[0-9]+/` $destination)) -}}
+  {{- /* Extract version from current page's URL */ -}}
+  {{- $currentUrl := .Page.RelPermalink -}}
+  {{- $version := "" -}}
+  
+  {{- if findRE `^/docs/v[0-9]+\.[0-9]+/` $currentUrl -}}
+    {{- $version = replaceRE `^/docs/(v[0-9]+\.[0-9]+)/.*` "$1" $currentUrl -}}
+  {{- else -}}
+    {{- $version = .Page.Site.Params.latestVersion | default "v0.22" -}}
+  {{- end -}}
+  
+  {{- /* Rewrite the link to include the version */ -}}
+  {{- $path := strings.TrimPrefix "/docs/" $destination -}}
+  {{- $destination = printf "/docs/%s/%s" $version $path -}}
+{{- end -}}
+
+<a href="{{ $destination | safeURL }}"{{ with $title }} title="{{ . }}"{{ end }}>{{ $text }}</a>

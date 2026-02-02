@@ -1,1 +1,8 @@
-{{ with .Get 0 }}{{ $.Site.Params.tinkerbellRepo }}/tree/{{ $.Site.Params.tinkerbellVersion }}/{{ . }}{{ end }}
+{{- $currentUrl := .Page.RelPermalink -}}
+{{- $version := "" -}}
+{{- if findRE `^/docs/v[0-9]+\.[0-9]+/` $currentUrl -}}
+  {{- $version = replaceRE `^/docs/(v[0-9]+\.[0-9]+)/.*` "$1" $currentUrl -}}
+{{- else -}}
+  {{- $version = $.Site.Params.latestVersion | default "v0.22" -}}
+{{- end -}}
+{{ with .Get 0 }}{{ $.Site.Params.tinkerbellRepo }}/tree/{{ $version }}/{{ . }}{{ end }}

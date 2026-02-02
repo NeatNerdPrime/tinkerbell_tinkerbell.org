@@ -1,1 +1,24 @@
-{{ $.Site.Params.tinkerbellVersion }}
+{{- $currentUrl := .Page.RelPermalink -}}
+{{- $docsVersion := "" -}}
+{{- $releaseVersion := "" -}}
+
+{{/* Extract docs version from URL (e.g., v0.22 from /docs/v0.22/...) */}}
+{{- if findRE `^/docs/v[0-9]+\.[0-9]+/` $currentUrl -}}
+  {{- $docsVersion = replaceRE `^/docs/(v[0-9]+\.[0-9]+)/.*` "$1" $currentUrl -}}
+{{- else -}}
+  {{- $docsVersion = $.Site.Params.latestVersion | default "v0.22" -}}
+{{- end -}}
+
+{{/* Look up the full release version from params.versions mapping */}}
+{{- range $.Site.Params.versions -}}
+  {{- if eq .version $docsVersion -}}
+    {{- $releaseVersion = .releaseVersion -}}
+  {{- end -}}
+{{- end -}}
+
+{{/* Fall back to docs version with .0 suffix if no mapping found */}}
+{{- if not $releaseVersion -}}
+  {{- $releaseVersion = printf "%s.0" $docsVersion -}}
+{{- end -}}
+
+{{- $releaseVersion -}}
