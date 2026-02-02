@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+    {{- $latestUrl := printf "/docs/%s/" (.Site.Params.latestVersion | default "v0.22") -}}
+    {{- $redirectUrl := .Params.redirectTo | default $latestUrl -}}
     <meta charset="utf-8">
     <title>Redirecting...</title>
-    <meta http-equiv="refresh" content="0; url={{ .Params.redirectTo | default "/docs/v0.22/" }}">
-    <link rel="canonical" href="{{ .Params.redirectTo | default "/docs/v0.22/" }}">
+    <meta http-equiv="refresh" content="0; url={{ $redirectUrl }}">
+    <link rel="canonical" href="{{ $redirectUrl }}">
 </head>
 <body>
     <script>
-        window.location.href = "{{ .Params.redirectTo | default "/docs/v0.22/" }}";
+        window.location.href = "{{ $redirectUrl }}";
     </script>
-    <p>Redirecting to <a href="{{ .Params.redirectTo | default "/docs/v0.22/" }}">{{ .Params.redirectTo | default "/docs/v0.22/" }}</a>...</p>
+    <p>Redirecting to <a href="{{ $redirectUrl }}">{{ $redirectUrl }}</a>...</p>
 </body>
 </html>

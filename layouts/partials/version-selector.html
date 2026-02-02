@@ -12,26 +12,117 @@
   {{- end -}}
 
   <div class="version-selector">
-    <button class="version-selector__button" aria-haspopup="listbox" aria-label="Select documentation version">
+    <button 
+      class="version-selector__button" 
+      aria-haspopup="listbox" 
+      aria-expanded="false"
+      aria-controls="version-selector-list"
+      aria-label="Select documentation version"
+      id="version-selector-button"
+    >
       <span class="version-selector__label">{{ $currentVersion }}</span>
       <svg class="version-selector__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
         <path fill="currentColor" d="M7 10l5 5 5-5z"/>
       </svg>
     </button>
-    <ul class="version-selector__list" role="listbox">
-      {{- range .Site.Params.versions -}}
-        {{- $isActive := eq .version $currentVersion -}}
-        {{- $versionUrl := .url -}}
+    <ul class="version-selector__list" role="listbox" id="version-selector-list" tabindex="-1">
+      {{- range $index, $ver := .Site.Params.versions -}}
+        {{- $isActive := eq $ver.version $currentVersion -}}
+        {{- $versionUrl := $ver.url -}}
         {{/* Build target URL by replacing version in current path */}}
         {{- $targetUrl := $versionUrl -}}
         {{- if findRE `^/docs/v[0-9]+\.[0-9]+/` $currentUrl -}}
           {{- $pathSuffix := replaceRE `^/docs/v[0-9]+\.[0-9]+/(.*)` "$1" $currentUrl -}}
-          {{- $targetUrl = printf "/docs/%s/%s" .version $pathSuffix -}}
+          {{- $targetUrl = printf "/docs/%s/%s" $ver.version $pathSuffix -}}
         {{- end -}}
         <li class="version-selector__item{{ if $isActive }} version-selector__item--active{{ end }}" role="option" {{ if $isActive }}aria-selected="true"{{ end }}>
-          <a href="{{ $targetUrl }}">{{ .version }}{{ if eq .version $latestVersion }} (latest){{ end }}</a>
+          <a href="{{ $targetUrl }}" tabindex="-1">{{ $ver.version }}{{ if eq $ver.version $latestVersion }} (latest){{ end }}</a>
         </li>
       {{- end -}}
     </ul>
   </div>
+  <script>
+  (function() {
+    const selector = document.querySelector('.version-selector');
+    const button = document.getElementById('version-selector-button');
+    const list = document.getElementById('version-selector-list');
+    if (!selector || !button || !list) return;
+    const items = list.querySelectorAll('.version-selector__item a');
+    let isOpen = false;
+    let focusedIndex = -1;
+
+    function openDropdown() {
+      isOpen = true;
+      button.setAttribute('aria-expanded', 'true');
+      selector.classList.add('version-selector--open');
+      focusedIndex = 0;
+      items[focusedIndex].focus();
+    }
+
+    function closeDropdown() {
+      isOpen = false;
+      button.setAttribute('aria-expanded', 'false');
+      selector.classList.remove('version-selector--open');
+      focusedIndex = -1;
+      button.focus();
+    }
+
+    function focusItem(index) {
+      if (index < 0) index = items.length - 1;
+      if (index >= items.length) index = 0;
+      focusedIndex = index;
+      items[focusedIndex].focus();
+    }
+
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (isOpen) {
+        closeDropdown();
+      } else {
+        openDropdown();
+      }
+    });
+
+    button.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        openDropdown();
+      }
+    });
+
+    list.addEventListener('keydown', function(e) {
+      switch(e.key) {
+        case 'Escape':
+          e.preventDefault();
+          closeDropdown();
+          break;
+        case 'ArrowDown':
+          e.preventDefault();
+          focusItem(focusedIndex + 1);
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          focusItem(focusedIndex - 1);
+          break;
+        case 'Home':
+          e.preventDefault();
+          focusItem(0);
+          break;
+        case 'End':
+          e.preventDefault();
+          focusItem(items.length - 1);
+          break;
+        case 'Tab':
+          closeDropdown();
+          break;
+      }
+    });
+
+    document.addEventListener('click', function(e) {
+      if (isOpen && !selector.contains(e.target)) {
+        closeDropdown();
+      }
+    });
+  })();
+  </script>
 {{- end -}}

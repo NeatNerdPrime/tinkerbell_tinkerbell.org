@@ -1,0 +1,12 @@
+{{- $latest := .Site.Params.latestVersion | default "v0.22" -}}
+# Docs versioning redirects - auto-generated from latestVersion param
+# Latest version: {{ $latest }}
+
+/docs/  /docs/{{ $latest }}/  301!
+/docs/concepts/*  /docs/{{ $latest }}/concepts/:splat  301
+/docs/setup/*  /docs/{{ $latest }}/setup/:splat  301
+/docs/services/*  /docs/{{ $latest }}/services/:splat  301
+/docs/additionalcomponents/*  /docs/{{ $latest }}/additionalcomponents/:splat  301
+/docs/operations/*  /docs/{{ $latest }}/operations/:splat  301
+/docs/integrations/*  /docs/{{ $latest }}/integrations/:splat  301
+/docs/reference/*  /docs/{{ $latest }}/reference/:splat  301

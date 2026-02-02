@@ -4,6 +4,17 @@ body {
     font-family: Barlow, sans-serif;
 }
 
+/* Text selection highlighting */
+::selection {
+    background: #b3e0ec;
+    color: inherit;
+}
+
+::-moz-selection {
+    background: #b3e0ec;
+    color: inherit;
+}
+
 /* Version Selector Dropdown */
 .version-selector {
     position: relative;
@@ -57,6 +68,7 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
     transform: translateY(-8px);
     transition: all 0.2s ease;
 }
@@ -65,7 +77,26 @@ body {
 .version-selector:focus-within .version-selector__list {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
     transform: translateY(0);
+}
+
+.version-selector--open .version-selector__list {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.version-selector--open .version-selector__icon {
+    transform: rotate(180deg);
+}
+
+.version-selector__item a:focus {
+    outline: 2px solid #0087ac;
+    outline-offset: -2px;
+    color: #fff;
+    background: rgba(3, 134, 172, 0.3);
 }
 
 .version-selector__item {
@@ -80,6 +111,7 @@ body {
     font-size: 0.875rem;
     text-decoration: none;
     transition: all 0.15s ease;
+    white-space: nowrap;
 }
 
 .version-selector__item a:hover {

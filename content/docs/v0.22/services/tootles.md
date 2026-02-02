@@ -66,4 +66,4 @@ Some examples are:
 [equinix metal: metadata]: https://metal.equinix.com/developers/docs/servers/metadata/
 [gcp: storing and retrieving instance metadata]: https://cloud.google.com/compute/docs/metadata/overview
 [hook]: /docs/additionalcomponents/hookOS
-[`hardware`]: {{< stringparam "latestTinkerbellVersion" >}}/crd/bases/tinkerbell.org_hardware.yaml
+[`hardware`]: {{< repo_tree "crd/bases/tinkerbell.org_hardware.yaml" >}}
