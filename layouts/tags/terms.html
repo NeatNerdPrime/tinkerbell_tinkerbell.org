@@ -1,0 +1,22 @@
+{{ define "main" }}
+  {{ partial "navbar" . }}
+  <div class="blog-container">
+    <nav class="blog-breadcrumb blog-breadcrumb--inline">
+      <a href="/blog/">← Back to Blog</a>
+    </nav>
+
+    <header class="blog-header">
+      <h1>All Tags</h1>
+      <p class="blog-description">Browse posts by topic</p>
+    </header>
+
+    <div class="tags-list">
+      {{ range .Pages.ByTitle }}
+      <a href="{{ .RelPermalink }}" class="tag-item">
+        <span class="tag-item__name">{{ .Title }}</span>
+        <span class="tag-item__count">{{ len .Pages }}</span>
+      </a>
+      {{ end }}
+    </div>
+  </div>
+{{ end }}

@@ -128,7 +128,13 @@ weight = 1
 identifier = "community"
 name = "Community"
 url = "/docs/reference/community/"
-weight = 20
+weight = 10
+
+[[menu.homepage]]
+identifier = "blog"
+name = "Blog"
+url = "/blog/"
+weight = 15
 
 [[menu.homepage]]
 pre = '<i class="fab fa-fw fa-github"></i>'
