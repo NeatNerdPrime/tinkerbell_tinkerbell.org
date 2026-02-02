@@ -127,7 +127,7 @@ weight = 1
 [[menu.homepage]]
 identifier = "community"
 name = "Community"
-url = "/docs/v0.22/reference/community/"
+url = "/docs/reference/community/"
 weight = 10
 
 [[menu.homepage]]

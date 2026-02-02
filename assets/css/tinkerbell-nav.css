@@ -1525,10 +1525,20 @@ screen and (min-width: 40em) {
     background: transparent;
 }
 
-.nav-theme-toggle:hover,
+.nav-theme-toggle:hover {
+    border-color: #fff;
+}
+
 .nav-theme-toggle:focus {
     border-color: #fff;
-    outline: none;
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+.nav-theme-toggle:focus-visible {
+    border-color: #fff;
+    outline: 2px solid #fff;
+    outline-offset: 2px;
 }
 
 .nav-theme-toggle .gdoc-icon {
@@ -1550,17 +1560,17 @@ screen and (min-width: 40em) {
     display: none;
 }
 
-/* Light mode: show moon icon (to switch to dark) */
+/* Light mode: show moon icon (indicates dark mode available; cycles to auto) */
 .color-toggle-light .nav-theme-toggle .gdoc_brightness_dark {
     display: block;
 }
 
-/* Dark mode: show sun icon (to switch to light) */
+/* Dark mode: show sun icon (indicates light mode available; cycles to light) */
 .color-toggle-dark .nav-theme-toggle .gdoc_brightness_light {
     display: block;
 }
 
-/* Auto mode: show auto icon */
+/* Auto mode: show auto icon (follows system preference; cycles to dark) */
 .color-toggle-auto .nav-theme-toggle .gdoc_brightness_auto {
     display: block;
 }

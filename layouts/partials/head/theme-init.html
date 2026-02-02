@@ -1,0 +1,27 @@
+{{/*
+  Theme Initialization Script - Prevents Flash of Unstyled Content (FOUC)
+  This script runs synchronously in the <head> to set the correct theme class
+  before any content is rendered.
+*/}}
+<script>
+(function() {
+  var STORAGE_KEY = 'hugo-geekdoc';
+  var theme = 'auto';
+  try {
+    var data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    if (data['color-theme']) {
+      theme = data['color-theme'];
+    }
+  } catch(e) {}
+  
+  var html = document.documentElement;
+  html.classList.remove('color-toggle-auto', 'color-toggle-dark', 'color-toggle-light');
+  html.classList.add('color-toggle-' + theme);
+  
+  if (theme === 'auto') {
+    html.removeAttribute('color-theme');
+  } else {
+    html.setAttribute('color-theme', theme);
+  }
+})();
+</script>

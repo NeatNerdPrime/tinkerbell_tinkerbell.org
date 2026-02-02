@@ -19,6 +19,7 @@
     {{ partial "head/microformats" . }}
     {{ partial "head/others" . }}
     {{ partial "head/custom" . }}
+    {{ partial "head/theme-init" . }}
   </head>
 
   <body itemscope itemtype="https://schema.org/WebPage">
@@ -33,57 +34,6 @@
     {{ partial "site-footer" . }}
 
     {{ partial "foot" . }}
-    
-    {{/* Dark mode toggle fallback script */}}
-    <script>
-    (function() {
-      var STORAGE_KEY = 'hugo-geekdoc';
-      var MODES = ['auto', 'dark', 'light'];
-      
-      function getStoredTheme() {
-        try {
-          var data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-          return data['color-theme'] || 'auto';
-        } catch(e) { return 'auto'; }
-      }
-      
-      function setTheme(mode) {
-        var html = document.documentElement;
-        MODES.forEach(function(m) { html.classList.remove('color-toggle-' + m); });
-        html.classList.add('color-toggle-' + mode);
-        if (mode === 'auto') {
-          html.removeAttribute('color-theme');
-        } else {
-          html.setAttribute('color-theme', mode);
-        }
-        try {
-          var data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-          data['color-theme'] = mode;
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-        } catch(e) {}
-      }
-      
-      function cycleTheme() {
-        var current = getStoredTheme();
-        var idx = MODES.indexOf(current);
-        var next = MODES[(idx + 1) % MODES.length];
-        setTheme(next);
-      }
-      
-      // Initialize theme on load
-      setTheme(getStoredTheme());
-      
-      // Attach click handler
-      document.addEventListener('DOMContentLoaded', function() {
-        var toggle = document.getElementById('gdoc-color-theme');
-        if (toggle) {
-          toggle.addEventListener('click', cycleTheme);
-          toggle.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') { cycleTheme(); e.preventDefault(); }
-          });
-        }
-      });
-    })();
-    </script>
+    {{ partial "dark-mode-toggle" . }}
   </body>
 </html>

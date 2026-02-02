@@ -19,6 +19,7 @@
     {{ partial "head/microformats" . }}
     {{ partial "head/others" . }}
     {{ partial "head/custom" . }}
+    {{ partial "head/theme-init" . }}
   </head>
 
   <body itemscope itemtype="https://schema.org/WebPage">
@@ -257,40 +258,23 @@
     }
     </style>
     
-    {{/* Fallback dark mode toggle script - ensures toggle works with our custom navbar */}}
+    {{/* Dark mode toggle - shared partial for consistency */}}
+    {{ partial "dark-mode-toggle" . }}
+    
+    {{/* Syntax highlighting script - docs pages only */}}
     <script>
     (function() {
-      var STORAGE_KEY = 'hugo-geekdoc';
-      var MODES = ['auto', 'dark', 'light'];
-      
-      function getStoredTheme() {
-        try {
-          var data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-          return data['color-theme'] || 'auto';
-        } catch(e) { return 'auto'; }
-      }
-      
-      function setTheme(mode) {
-        var html = document.documentElement;
-        // Remove all mode classes
-        MODES.forEach(function(m) { html.classList.remove('color-toggle-' + m); });
-        // Add the current mode class
-        html.classList.add('color-toggle-' + mode);
-        // Set or remove color-theme attribute
-        if (mode === 'auto') {
-          html.removeAttribute('color-theme');
-        } else {
-          html.setAttribute('color-theme', mode);
-        }
-        // Save to localStorage
-        try {
-          var data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-          data['color-theme'] = mode;
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-        } catch(e) {}
-        
-        // Force syntax highlighting colors after theme change
-        applySyntaxHighlighting();
+      // Debounce helper to avoid excessive calls on rapid mutations
+      function debounce(fn, delay) {
+        var timeoutId;
+        return function() {
+          var context = this;
+          var args = arguments;
+          clearTimeout(timeoutId);
+          timeoutId = setTimeout(function() {
+            fn.apply(context, args);
+          }, delay);
+        };
       }
       
       function applySyntaxHighlighting() {
@@ -337,102 +321,24 @@
         });
       }
       
-      function cycleTheme() {
-        var current = getStoredTheme();
-        var idx = MODES.indexOf(current);
-        var next = MODES[(idx + 1) % MODES.length];
-        setTheme(next);
-      }
-      
-      // Initialize theme from storage
-      var stored = getStoredTheme();
-      setTheme(stored);
-      
-      // Inject syntax highlighting overrides as a new stylesheet at the end of head
-      // This ensures it loads AFTER all other stylesheets
-      function injectSyntaxStyles() {
-        var styleId = 'custom-syntax-highlight';
-        if (document.getElementById(styleId)) return;
-        
-        var style = document.createElement('style');
-        style.id = styleId;
-        style.textContent = '\
-:root[color-theme="dark"] .chroma .nt { color: #8ddb8c !important; }\
-:root[color-theme="dark"] .chroma .l { color: #96d0ff !important; }\
-:root[color-theme="dark"] .chroma .s, :root[color-theme="dark"] .chroma .s1, :root[color-theme="dark"] .chroma .s2 { color: #96d0ff !important; }\
-:root[color-theme="dark"] .chroma .p { color: #adbac7 !important; }\
-:root[color-theme="dark"] .chroma .w { color: #adbac7 !important; }\
-:root[color-theme="dark"] .chroma .m, :root[color-theme="dark"] .chroma .mi, :root[color-theme="dark"] .chroma .mf { color: #6cb6ff !important; }\
-:root[color-theme="dark"] .chroma .k, :root[color-theme="dark"] .chroma .kc, :root[color-theme="dark"] .chroma .kd, :root[color-theme="dark"] .chroma .kn { color: #f47067 !important; }\
-:root[color-theme="dark"] .chroma .c, :root[color-theme="dark"] .chroma .c1, :root[color-theme="dark"] .chroma .cm { color: #768390 !important; }\
-:root[color-theme="dark"] .chroma .na { color: #6cb6ff !important; }\
-:root[color-theme="dark"] .chroma .nf { color: #dcbdfb !important; }\
-:root[color-theme="dark"] .chroma .nb { color: #f69d50 !important; }\
-:root[color-theme="dark"] .chroma .err { color: #ff938a !important; }\
-:root[color-theme="dark"] .chroma .o { color: #f47067 !important; }\
-:root[color-theme="dark"] .chroma .line, :root[color-theme="dark"] .chroma .cl { color: #adbac7 !important; }\
-@media (prefers-color-scheme: dark) {\
-  html.color-toggle-auto .chroma .nt { color: #8ddb8c !important; }\
-  html.color-toggle-auto .chroma .l { color: #96d0ff !important; }\
-  html.color-toggle-auto .chroma .s, html.color-toggle-auto .chroma .s1, html.color-toggle-auto .chroma .s2 { color: #96d0ff !important; }\
-  html.color-toggle-auto .chroma .p { color: #adbac7 !important; }\
-  html.color-toggle-auto .chroma .m, html.color-toggle-auto .chroma .mi { color: #6cb6ff !important; }\
-  html.color-toggle-auto .chroma .k, html.color-toggle-auto .chroma .kc, html.color-toggle-auto .chroma .kd, html.color-toggle-auto .chroma .kn { color: #f47067 !important; }\
-  html.color-toggle-auto .chroma .c, html.color-toggle-auto .chroma .c1 { color: #768390 !important; }\
-  html.color-toggle-auto .chroma .na { color: #6cb6ff !important; }\
-  html.color-toggle-auto .chroma .nf { color: #dcbdfb !important; }\
-  html.color-toggle-auto .chroma .nb { color: #f69d50 !important; }\
-  html.color-toggle-auto .chroma .o { color: #f47067 !important; }\
-  html.color-toggle-auto .chroma .line, html.color-toggle-auto .chroma .cl { color: #adbac7 !important; }\
-}\
-';
-        document.head.appendChild(style);
-      }
-      
-      // Inject immediately and also after load
-      injectSyntaxStyles();
+      // Apply once after load
       window.addEventListener('load', function() {
-        injectSyntaxStyles();
-        // Apply after a delay to ensure theme JS has run
-        setTimeout(applySyntaxHighlighting, 50);
-        setTimeout(applySyntaxHighlighting, 200);
-        setTimeout(applySyntaxHighlighting, 500);
+        applySyntaxHighlighting();
       });
       
-      // Re-apply when DOM changes (in case code blocks are dynamically loaded)
+      // Debounced version for mutation observer (100ms delay)
+      var debouncedApply = debounce(applySyntaxHighlighting, 100);
+      
+      // Re-apply when theme changes (debounced to avoid excessive calls)
       var observer = new MutationObserver(function(mutations) {
-        applySyntaxHighlighting();
+        debouncedApply();
       });
       observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'color-theme'] });
       
       // Also listen for system theme changes
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
-        setTimeout(applySyntaxHighlighting, 100);
+        debouncedApply();
       });
-      
-      // Attach click handler when DOM is ready
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', attachHandler);
-      } else {
-        attachHandler();
-      }
-      
-      function attachHandler() {
-        var toggle = document.getElementById('gdoc-color-theme');
-        if (toggle && !toggle._themeHandlerAttached) {
-          toggle._themeHandlerAttached = true;
-          toggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            cycleTheme();
-          });
-          toggle.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              cycleTheme();
-            }
-          });
-        }
-      }
     })();
     </script>
   </body>
