@@ -567,19 +567,19 @@ body:has(.blog-wrapper) > .wrapper {
     top: 100%;
     left: 0;
     z-index: 1000;
-    min-width: 120px;
     margin: 4px 0 0;
-    padding: 4px 0;
+    padding: 0;
     list-style: none;
-    background: #05254c;
-    border: 1px solid #0386ac;
+    background: #2d333b;
+    border: none;
     border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
     transform: translateY(-8px);
     transition: all 0.2s ease;
+    overflow: hidden;
 }
 
 .version-selector:hover .version-selector__list,
@@ -609,18 +609,24 @@ body:has(.blog-wrapper) > .wrapper {
 }
 
 .version-selector__item {
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: inherit;
+    list-style: none !important;
 }
 
 .version-selector__item a {
     display: block;
-    padding: 6px 12px;
+    padding: 8px 10px !important;
+    margin: 0 !important;
     color: #9dafc4;
     font-size: 0.875rem;
-    text-decoration: none;
+    text-decoration: none !important;
+    border: none !important;
+    border-bottom: none !important;
     transition: all 0.15s ease;
     white-space: nowrap;
+    background: inherit;
 }
 
 .version-selector__item a:hover {
@@ -635,6 +641,7 @@ body:has(.blog-wrapper) > .wrapper {
 
 .version-selector__item--active a:hover {
     color: #ffd105;
+    background: rgba(3, 134, 172, 0.3);
 }
 
 /* End Version Selector */
@@ -2381,12 +2388,55 @@ html.color-toggle-dark .site-footer {
     border-top-color: #373e47 !important;
 }
 
-/* Version selector */
+/* Version selector - Dark mode */
 html.color-toggle-dark .version-selector select,
 html.color-toggle-dark select {
     background-color: #373e47 !important;
     color: #adbac7 !important;
     border-color: #444c56 !important;
+}
+
+html.color-toggle-dark .version-selector__button {
+    background-color: #2d333b !important;
+    color: #adbac7 !important;
+    border-color: #444c56 !important;
+}
+
+html.color-toggle-dark .version-selector__button:hover,
+html.color-toggle-dark .version-selector__button:focus {
+    color: #e6edf3 !important;
+    border-color: #768390 !important;
+}
+
+html.color-toggle-dark .version-selector__list {
+    background-color: #2d333b !important;
+    border: none !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+}
+
+html.color-toggle-dark .version-selector__item,
+html.color-toggle-dark .version-selector__item a {
+    background-color: #2d333b !important;
+}
+
+html.color-toggle-dark .version-selector__item a {
+    color: #adbac7 !important;
+}
+
+html.color-toggle-dark .version-selector__item a:hover,
+html.color-toggle-dark .version-selector__item a:focus {
+    color: #e6edf3 !important;
+    background-color: #373e47 !important;
+}
+
+html.color-toggle-dark .version-selector__item--active a {
+    color: #ffd105 !important;
+    background-color: #2d333b !important;
+}
+
+html.color-toggle-dark .version-selector__item--active a:hover {
+    color: #ffd105 !important;
+    background-color: #373e47 !important;
 }
 
 /* ===== AUTO MODE - System dark preference ===== */
@@ -2673,5 +2723,48 @@ html.color-toggle-dark select {
         background-color: #373e47 !important;
         color: #adbac7 !important;
         border-color: #444c56 !important;
+    }
+
+    html.color-toggle-auto .version-selector__button {
+        background-color: #2d333b !important;
+        color: #adbac7 !important;
+        border-color: #444c56 !important;
+    }
+
+    html.color-toggle-auto .version-selector__button:hover,
+    html.color-toggle-auto .version-selector__button:focus {
+        color: #e6edf3 !important;
+        border-color: #768390 !important;
+    }
+
+    html.color-toggle-auto .version-selector__list {
+        background-color: #2d333b !important;
+        border: none !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    html.color-toggle-auto .version-selector__item,
+    html.color-toggle-auto .version-selector__item a {
+        background-color: #2d333b !important;
+    }
+
+    html.color-toggle-auto .version-selector__item a {
+        color: #adbac7 !important;
+    }
+
+    html.color-toggle-auto .version-selector__item a:hover,
+    html.color-toggle-auto .version-selector__item a:focus {
+        color: #e6edf3 !important;
+        background-color: #373e47 !important;
+    }
+
+    html.color-toggle-auto .version-selector__item--active a {
+        color: #ffd105 !important;
+        background-color: #2d333b !important;
+    }
+
+    html.color-toggle-auto .version-selector__item--active a:hover {
+        color: #ffd105 !important;
+        background-color: #373e47 !important;
     }
 }
