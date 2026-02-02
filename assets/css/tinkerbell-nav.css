@@ -2006,6 +2006,17 @@ html:not(.color-toggle-light):not(.color-toggle-dark):not(.color-toggle-auto) .n
 
 /* ===== DARK MODE EXPLICIT STYLES ===== */
 
+/* Text selection */
+html.color-toggle-dark ::selection {
+    background: #264f78 !important;
+    color: #ffffff !important;
+}
+
+html.color-toggle-dark ::-moz-selection {
+    background: #264f78 !important;
+    color: #ffffff !important;
+}
+
 /* Root level backgrounds */
 html.color-toggle-dark,
 html.color-toggle-dark body {
@@ -2266,6 +2277,7 @@ html.color-toggle-dark .highlight .chroma .cl {
 /* Tables */
 html.color-toggle-dark .gdoc-markdown table {
     border-color: #444c56 !important;
+    background-color: #22272e !important;
 }
 
 html.color-toggle-dark .gdoc-markdown th {
@@ -2276,11 +2288,18 @@ html.color-toggle-dark .gdoc-markdown th {
 
 html.color-toggle-dark .gdoc-markdown td {
     border-color: #444c56 !important;
-    color: #adbac7 !important;
+    color: #e6edf3 !important;
+    background-color: #22272e !important;
 }
 
-html.color-toggle-dark .gdoc-markdown tr:nth-child(2n) {
+html.color-toggle-dark .gdoc-markdown tr:nth-child(2n) td {
     background-color: #2d333b !important;
+}
+
+/* Inline code in tables */
+html.color-toggle-dark .gdoc-markdown td code {
+    background-color: rgba(110, 118, 129, 0.4) !important;
+    color: #e6edf3 !important;
 }
 
 /* Blockquotes */
@@ -2441,6 +2460,17 @@ html.color-toggle-dark .version-selector__item--active a:hover {
 
 /* ===== AUTO MODE - System dark preference ===== */
 @media (prefers-color-scheme: dark) {
+    /* Text selection */
+    html.color-toggle-auto ::selection {
+        background: #264f78 !important;
+        color: #ffffff !important;
+    }
+
+    html.color-toggle-auto ::-moz-selection {
+        background: #264f78 !important;
+        color: #ffffff !important;
+    }
+
     html.color-toggle-auto,
     html.color-toggle-auto body {
         background-color: #22272e !important;
@@ -2662,6 +2692,7 @@ html.color-toggle-dark .version-selector__item--active a:hover {
 
     html.color-toggle-auto .gdoc-markdown table {
         border-color: #444c56 !important;
+        background-color: #22272e !important;
     }
 
     html.color-toggle-auto .gdoc-markdown th {
@@ -2672,7 +2703,18 @@ html.color-toggle-dark .version-selector__item--active a:hover {
 
     html.color-toggle-auto .gdoc-markdown td {
         border-color: #444c56 !important;
-        color: #adbac7 !important;
+        color: #e6edf3 !important;
+        background-color: #22272e !important;
+    }
+
+    html.color-toggle-auto .gdoc-markdown tr:nth-child(2n) td {
+        background-color: #2d333b !important;
+    }
+
+    /* Inline code in tables */
+    html.color-toggle-auto .gdoc-markdown td code {
+        background-color: rgba(110, 118, 129, 0.4) !important;
+        color: #e6edf3 !important;
     }
 
     html.color-toggle-auto .gdoc-page__header a {
