@@ -47,6 +47,15 @@
                     {{ partial "version-selector.html" . }}
                   </li>
                   {{- end -}}
+                  {{- if not .IsHome -}}
+                  <li class="dark-mode-toggle">
+                    <span id="gdoc-color-theme" class="nav-theme-toggle" tabindex="0" role="button" aria-label="Color theme: auto (follows system). Click to switch to dark mode.">
+                      <svg class="gdoc-icon gdoc_brightness_dark" aria-hidden="true"><use xlink:href="#gdoc_brightness_dark"></use></svg>
+                      <svg class="gdoc-icon gdoc_brightness_light" aria-hidden="true"><use xlink:href="#gdoc_brightness_light"></use></svg>
+                      <svg class="gdoc-icon gdoc_brightness_auto" aria-hidden="true"><use xlink:href="#gdoc_brightness_auto"></use></svg>
+                    </span>
+                  </li>
+                  {{- end -}}
                 </ul>
               </div>
             </div>

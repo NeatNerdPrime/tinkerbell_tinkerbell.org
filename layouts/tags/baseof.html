@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html
   lang="{{ .Site.Language.Lang }}"
-  class="color-toggle-hidden"
+  class="color-toggle-auto"
   {{ if default false .Site.Params.geekdocDarkModeCode }}code-theme="dark"{{ end }}
 >
   <head>
@@ -15,6 +15,7 @@
     {{ partial "head/microformats" . }}
     {{ partial "head/others" . }}
     {{ partial "head/custom" . }}
+    {{ partial "head/theme-init" . }}
   </head>
 
   <body itemscope itemtype="https://schema.org/WebPage">
@@ -29,5 +30,6 @@
     {{ partial "site-footer" . }}
 
     {{ partial "foot" . }}
+    {{ partial "dark-mode-toggle" . }}
   </body>
 </html>

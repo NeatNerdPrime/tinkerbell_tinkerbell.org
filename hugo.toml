@@ -64,8 +64,8 @@ ogtitle = "Flexible automation for bare metal"
 ogdescription = "Designed for scalable provisioning of physical hardware, Tinkerbell is both open-source and cloud native. Contributed to the CNCF by Equinix Metal."
 
 geekdocBreadcrumb = true
-geekdocDarkModeToggle = false
-geekdocDarkModeCode = false
+geekdocDarkModeToggle = true
+geekdocDarkModeCode = true
 geekdocDarkModeDim = true
 geekdocLogo = "Tinkerbell-Logo-Landscape-Light.png"
 geekdocOverwriteHTMLBase = false

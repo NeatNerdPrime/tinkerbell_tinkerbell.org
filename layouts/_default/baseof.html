@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html
   lang="{{ .Site.Language.Lang }}"
-  class="color-toggle-hidden"
+  class="color-toggle-auto"
   {{ if default false .Site.Params.geekdocDarkModeCode }}code-theme="dark"{{ end }}
 >
   <head>
@@ -19,6 +19,7 @@
     {{ partial "head/microformats" . }}
     {{ partial "head/others" . }}
     {{ partial "head/custom" . }}
+    {{ partial "head/theme-init" . }}
   </head>
 
   <body itemscope itemtype="https://schema.org/WebPage">
@@ -63,5 +64,282 @@
     </div>
 
     {{ partial "foot" . }}
+    
+    {{/* Load syntax highlighting CSS after theme CSS to ensure proper override */}}
+    <style>
+    /* Light mode - GitHub light theme colors */
+    :root:not([color-theme="dark"]) .chroma .nt,
+    html.color-toggle-light .chroma .nt { color: #116329 !important; } /* Tags/keys - green */
+    :root:not([color-theme="dark"]) .chroma .l,
+    html.color-toggle-light .chroma .l { color: #0a3069 !important; } /* Literals - blue */
+    :root:not([color-theme="dark"]) .chroma .s,
+    :root:not([color-theme="dark"]) .chroma .s1,
+    :root:not([color-theme="dark"]) .chroma .s2,
+    html.color-toggle-light .chroma .s,
+    html.color-toggle-light .chroma .s1,
+    html.color-toggle-light .chroma .s2 { color: #0a3069 !important; } /* Strings - blue */
+    :root:not([color-theme="dark"]) .chroma .p,
+    html.color-toggle-light .chroma .p { color: #24292f !important; } /* Punctuation */
+    :root:not([color-theme="dark"]) .chroma .m,
+    :root:not([color-theme="dark"]) .chroma .mi,
+    :root:not([color-theme="dark"]) .chroma .mf,
+    html.color-toggle-light .chroma .m,
+    html.color-toggle-light .chroma .mi { color: #0550ae !important; } /* Numbers - blue */
+    :root:not([color-theme="dark"]) .chroma .k,
+    :root:not([color-theme="dark"]) .chroma .kc,
+    :root:not([color-theme="dark"]) .chroma .kd,
+    :root:not([color-theme="dark"]) .chroma .kn,
+    html.color-toggle-light .chroma .k,
+    html.color-toggle-light .chroma .kc,
+    html.color-toggle-light .chroma .kd,
+    html.color-toggle-light .chroma .kn { color: #cf222e !important; } /* Keywords - red */
+    :root:not([color-theme="dark"]) .chroma .c,
+    :root:not([color-theme="dark"]) .chroma .c1,
+    :root:not([color-theme="dark"]) .chroma .cm,
+    html.color-toggle-light .chroma .c,
+    html.color-toggle-light .chroma .c1 { color: #6e7781 !important; } /* Comments - gray */
+    :root:not([color-theme="dark"]) .chroma .na,
+    html.color-toggle-light .chroma .na { color: #0550ae !important; } /* Attributes - blue */
+    :root:not([color-theme="dark"]) .chroma .nf,
+    html.color-toggle-light .chroma .nf { color: #8250df !important; } /* Functions - purple */
+    :root:not([color-theme="dark"]) .chroma .nb,
+    html.color-toggle-light .chroma .nb { color: #0550ae !important; } /* Builtins - blue */
+    :root:not([color-theme="dark"]) .chroma .nc,
+    html.color-toggle-light .chroma .nc { color: #953800 !important; } /* Classes - orange */
+    :root:not([color-theme="dark"]) .chroma .err,
+    html.color-toggle-light .chroma .err { color: #cf222e !important; } /* Errors */
+    :root:not([color-theme="dark"]) .chroma .o,
+    html.color-toggle-light .chroma .o { color: #cf222e !important; } /* Operators */
+    :root:not([color-theme="dark"]) .chroma .kt,
+    html.color-toggle-light .chroma .kt { color: #953800 !important; } /* Types - orange */
+    :root:not([color-theme="dark"]) .chroma .line,
+    :root:not([color-theme="dark"]) .chroma .cl,
+    html.color-toggle-light .chroma .line,
+    html.color-toggle-light .chroma .cl { color: #24292f !important; } /* Default text */
+    
+    /* Dark mode - GitHub Soft Dark (Dark Default) theme colors */
+    :root[color-theme="dark"] .chroma .nt,
+    html.color-toggle-dark .chroma .nt {
+        color: #8ddb8c !important; /* Tags/keys - soft green */
+    }
+    :root[color-theme="dark"] .chroma .l,
+    html.color-toggle-dark .chroma .l {
+        color: #96d0ff !important; /* Literals - soft blue */
+    }
+    :root[color-theme="dark"] .chroma .s,
+    :root[color-theme="dark"] .chroma .s1,
+    :root[color-theme="dark"] .chroma .s2,
+    html.color-toggle-dark .chroma .s,
+    html.color-toggle-dark .chroma .s1,
+    html.color-toggle-dark .chroma .s2 {
+        color: #96d0ff !important; /* Strings - soft blue */
+    }
+    :root[color-theme="dark"] .chroma .p,
+    html.color-toggle-dark .chroma .p {
+        color: #e6edf3 !important; /* Punctuation */
+    }
+    :root[color-theme="dark"] .chroma .w,
+    html.color-toggle-dark .chroma .w {
+        color: #e6edf3 !important; /* Whitespace */
+    }
+    :root[color-theme="dark"] .chroma .m,
+    :root[color-theme="dark"] .chroma .mi,
+    :root[color-theme="dark"] .chroma .mf,
+    html.color-toggle-dark .chroma .m,
+    html.color-toggle-dark .chroma .mi,
+    html.color-toggle-dark .chroma .mf {
+        color: #6cb6ff !important; /* Numbers - soft blue */
+    }
+    :root[color-theme="dark"] .chroma .k,
+    :root[color-theme="dark"] .chroma .kc,
+    :root[color-theme="dark"] .chroma .kd,
+    :root[color-theme="dark"] .chroma .kn,
+    html.color-toggle-dark .chroma .k,
+    html.color-toggle-dark .chroma .kc,
+    html.color-toggle-dark .chroma .kd,
+    html.color-toggle-dark .chroma .kn {
+        color: #f47067 !important; /* Keywords - soft red */
+    }
+    :root[color-theme="dark"] .chroma .kt,
+    html.color-toggle-dark .chroma .kt {
+        color: #f69d50 !important; /* Types - soft orange */
+    }
+    :root[color-theme="dark"] .chroma .c,
+    :root[color-theme="dark"] .chroma .c1,
+    :root[color-theme="dark"] .chroma .cm,
+    html.color-toggle-dark .chroma .c,
+    html.color-toggle-dark .chroma .c1,
+    html.color-toggle-dark .chroma .cm {
+        color: #768390 !important; /* Comments - muted gray */
+    }
+    :root[color-theme="dark"] .chroma .na,
+    html.color-toggle-dark .chroma .na {
+        color: #6cb6ff !important; /* Attributes - soft blue */
+    }
+    :root[color-theme="dark"] .chroma .nf,
+    html.color-toggle-dark .chroma .nf {
+        color: #dcbdfb !important; /* Functions - soft purple */
+    }
+    :root[color-theme="dark"] .chroma .nb,
+    html.color-toggle-dark .chroma .nb {
+        color: #f69d50 !important; /* Builtins - soft orange */
+    }
+    :root[color-theme="dark"] .chroma .nc,
+    html.color-toggle-dark .chroma .nc {
+        color: #f69d50 !important; /* Classes - soft orange */
+    }
+    :root[color-theme="dark"] .chroma .err,
+    html.color-toggle-dark .chroma .err {
+        color: #ff938a !important; /* Errors - soft red */
+    }
+    :root[color-theme="dark"] .chroma .o,
+    html.color-toggle-dark .chroma .o {
+        color: #f47067 !important; /* Operators - soft red */
+    }
+    :root[color-theme="dark"] .chroma .line,
+    :root[color-theme="dark"] .chroma .cl,
+    html.color-toggle-dark .chroma .line,
+    html.color-toggle-dark .chroma .cl {
+        color: #e6edf3 !important; /* Default text */
+    }
+    /* Auto mode - system dark preference (GitHub Soft Dark) */
+    @media (prefers-color-scheme: dark) {
+        html.color-toggle-auto .chroma .nt { color: #8ddb8c !important; }
+        html.color-toggle-auto .chroma .l { color: #96d0ff !important; }
+        html.color-toggle-auto .chroma .s,
+        html.color-toggle-auto .chroma .s1,
+        html.color-toggle-auto .chroma .s2 { color: #96d0ff !important; }
+        html.color-toggle-auto .chroma .p { color: #e6edf3 !important; }
+        html.color-toggle-auto .chroma .w { color: #e6edf3 !important; }
+        html.color-toggle-auto .chroma .m,
+        html.color-toggle-auto .chroma .mi,
+        html.color-toggle-auto .chroma .mf { color: #6cb6ff !important; }
+        html.color-toggle-auto .chroma .k,
+        html.color-toggle-auto .chroma .kc,
+        html.color-toggle-auto .chroma .kd,
+        html.color-toggle-auto .chroma .kn { color: #f47067 !important; }
+        html.color-toggle-auto .chroma .kt { color: #f69d50 !important; }
+        html.color-toggle-auto .chroma .c,
+        html.color-toggle-auto .chroma .c1,
+        html.color-toggle-auto .chroma .cm { color: #768390 !important; }
+        html.color-toggle-auto .chroma .na { color: #6cb6ff !important; }
+        html.color-toggle-auto .chroma .nf { color: #dcbdfb !important; }
+        html.color-toggle-auto .chroma .nb { color: #f69d50 !important; }
+        html.color-toggle-auto .chroma .nc { color: #f69d50 !important; }
+        html.color-toggle-auto .chroma .err { color: #ff938a !important; }
+        html.color-toggle-auto .chroma .o { color: #f47067 !important; }
+        html.color-toggle-auto .chroma .line,
+        html.color-toggle-auto .chroma .cl { color: #e6edf3 !important; }
+    }
+    /* Auto mode - system light preference */
+    @media (prefers-color-scheme: light) {
+        html.color-toggle-auto .chroma .nt { color: #116329 !important; }
+        html.color-toggle-auto .chroma .l { color: #0a3069 !important; }
+        html.color-toggle-auto .chroma .s,
+        html.color-toggle-auto .chroma .s1,
+        html.color-toggle-auto .chroma .s2 { color: #0a3069 !important; }
+        html.color-toggle-auto .chroma .p { color: #24292f !important; }
+        html.color-toggle-auto .chroma .m,
+        html.color-toggle-auto .chroma .mi { color: #0550ae !important; }
+        html.color-toggle-auto .chroma .k,
+        html.color-toggle-auto .chroma .kc,
+        html.color-toggle-auto .chroma .kd,
+        html.color-toggle-auto .chroma .kn { color: #cf222e !important; }
+        html.color-toggle-auto .chroma .c,
+        html.color-toggle-auto .chroma .c1 { color: #6e7781 !important; }
+        html.color-toggle-auto .chroma .na { color: #0550ae !important; }
+        html.color-toggle-auto .chroma .nf { color: #8250df !important; }
+        html.color-toggle-auto .chroma .nb { color: #0550ae !important; }
+        html.color-toggle-auto .chroma .nc { color: #953800 !important; }
+        html.color-toggle-auto .chroma .kt { color: #953800 !important; }
+        html.color-toggle-auto .chroma .o { color: #cf222e !important; }
+        html.color-toggle-auto .chroma .line,
+        html.color-toggle-auto .chroma .cl { color: #24292f !important; }
+    }
+    </style>
+    
+    {{/* Dark mode toggle - shared partial for consistency */}}
+    {{ partial "dark-mode-toggle" . }}
+    
+    {{/* Syntax highlighting script - docs pages only */}}
+    <script>
+    (function() {
+      // Debounce helper to avoid excessive calls on rapid mutations
+      function debounce(fn, delay) {
+        var timeoutId;
+        return function() {
+          var context = this;
+          var args = arguments;
+          clearTimeout(timeoutId);
+          timeoutId = setTimeout(function() {
+            fn.apply(context, args);
+          }, delay);
+        };
+      }
+      
+      function applySyntaxHighlighting() {
+        var isDark = document.documentElement.classList.contains('color-toggle-dark') ||
+                     document.documentElement.getAttribute('color-theme') === 'dark' ||
+                     (document.documentElement.classList.contains('color-toggle-auto') && 
+                      window.matchMedia('(prefers-color-scheme: dark)').matches);
+        
+        // GitHub Soft Dark (Dark Default) theme colors
+        var darkColors = {
+          'nt': '#8ddb8c', 'l': '#96d0ff',
+          's': '#96d0ff', 's1': '#96d0ff', 's2': '#96d0ff', 'sa': '#96d0ff', 'sb': '#96d0ff', 'sc': '#96d0ff', 'dl': '#96d0ff', 'sd': '#96d0ff', 'se': '#96d0ff', 'sh': '#96d0ff', 'si': '#96d0ff', 'sx': '#96d0ff', 'sr': '#96d0ff', 'ss': '#96d0ff',
+          'p': '#e6edf3', 'w': '#e6edf3',
+          'm': '#6cb6ff', 'mi': '#6cb6ff', 'mf': '#6cb6ff', 'mb': '#6cb6ff', 'mh': '#6cb6ff', 'il': '#6cb6ff', 'mo': '#6cb6ff',
+          'k': '#f47067', 'kc': '#f47067', 'kd': '#f47067', 'kn': '#f47067', 'kp': '#f47067', 'kr': '#f47067', 'kt': '#f69d50',
+          'c': '#768390', 'c1': '#768390', 'cm': '#768390', 'ch': '#768390', 'cs': '#768390', 'cp': '#768390', 'cpf': '#768390',
+          'na': '#6cb6ff', 'nf': '#dcbdfb', 'nb': '#f69d50', 'nc': '#f69d50',
+          'err': '#ff938a', 'o': '#f47067', 'ow': '#f47067',
+          'n': '#e6edf3', 'nn': '#e6edf3', 'nx': '#e6edf3', 'nv': '#6cb6ff', 'vc': '#6cb6ff', 'vg': '#6cb6ff', 'vi': '#6cb6ff',
+          'line': '#e6edf3', 'cl': '#e6edf3', 'ln': '#768390', 'lnt': '#768390'
+        };
+        
+        // GitHub light theme colors (Primer)
+        var lightColors = {
+          'nt': '#116329', 'l': '#0a3069',
+          's': '#0a3069', 's1': '#0a3069', 's2': '#0a3069', 'sa': '#0a3069', 'sb': '#0a3069', 'sc': '#0a3069', 'dl': '#0a3069', 'sd': '#0a3069', 'se': '#0a3069', 'sh': '#0a3069', 'si': '#0a3069', 'sx': '#0a3069', 'sr': '#0a3069', 'ss': '#0a3069',
+          'p': '#24292f', 'w': '#24292f',
+          'm': '#0550ae', 'mi': '#0550ae', 'mf': '#0550ae', 'mb': '#0550ae', 'mh': '#0550ae', 'il': '#0550ae', 'mo': '#0550ae',
+          'k': '#cf222e', 'kc': '#cf222e', 'kd': '#cf222e', 'kn': '#cf222e', 'kp': '#cf222e', 'kr': '#cf222e', 'kt': '#953800',
+          'c': '#6e7781', 'c1': '#6e7781', 'cm': '#6e7781', 'ch': '#6e7781', 'cs': '#6e7781', 'cp': '#6e7781', 'cpf': '#6e7781',
+          'na': '#0550ae', 'nf': '#8250df', 'nb': '#0550ae', 'nc': '#953800',
+          'err': '#cf222e', 'o': '#cf222e', 'ow': '#cf222e',
+          'n': '#24292f', 'nn': '#24292f', 'nx': '#24292f', 'nv': '#0550ae', 'vc': '#0550ae', 'vg': '#0550ae', 'vi': '#0550ae',
+          'line': '#24292f', 'cl': '#24292f', 'ln': '#6e7781', 'lnt': '#6e7781'
+        };
+        
+        var colors = isDark ? darkColors : lightColors;
+        
+        Object.keys(colors).forEach(function(cls) {
+          var elements = document.querySelectorAll('.chroma .' + cls);
+          elements.forEach(function(el) {
+            el.style.setProperty('color', colors[cls], 'important');
+          });
+        });
+      }
+      
+      // Apply once after load
+      window.addEventListener('load', function() {
+        applySyntaxHighlighting();
+      });
+      
+      // Debounced version for mutation observer (100ms delay)
+      var debouncedApply = debounce(applySyntaxHighlighting, 100);
+      
+      // Re-apply when theme changes (debounced to avoid excessive calls)
+      var observer = new MutationObserver(function(mutations) {
+        debouncedApply();
+      });
+      observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'color-theme'] });
+      
+      // Also listen for system theme changes
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
+        debouncedApply();
+      });
+    })();
+    </script>
   </body>
 </html>
