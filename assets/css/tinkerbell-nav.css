@@ -350,6 +350,16 @@ body {
     font-style: italic;
 }
 
+.blog-post__content a {
+    text-decoration: underline;
+    border-bottom: 1px solid rgba(0, 0, 0, 0);
+    line-height: normal;
+}
+
+.blog-post__content a:hover {
+    text-decoration: none;
+}
+
 /* Blog Post Footer */
 .blog-post__footer {
     margin-top: 3rem;
