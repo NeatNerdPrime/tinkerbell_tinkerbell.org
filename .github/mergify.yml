@@ -24,10 +24,9 @@ queue_rules:
       - check-success=DCO
       - label!=do-not-merge
       - label=ready-to-merge
-    commit_message_template: |
-      {{ title }} (#{{ number }})
-
-      {{ body }}
+    commit_message_format:
+      title: pr-title
+      body: pr-body
     merge_method: merge
 
 pull_request_rules:
