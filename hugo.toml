@@ -65,7 +65,7 @@ ogdescription = "Designed for scalable provisioning of physical hardware, Tinker
 
 geekdocBreadcrumb = true
 geekdocDarkModeToggle = true
-geekdocDarkModeCode = true
+geekdocDarkModeCode = false
 geekdocDarkModeDim = true
 geekdocLogo = "Tinkerbell-Logo-Landscape-Light.png"
 geekdocOverwriteHTMLBase = false
